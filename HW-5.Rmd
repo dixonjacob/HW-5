@@ -1,20 +1,29 @@
 ---
 title: "MATH 216 Homework 5"
-author: "WRITE YOUR NAME HERE"
+author: "Jacob Dixon"
 output: html_document
 ---
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(stringr)
+library(tm)
+library(wordcloud)
+library(SnowballC)
+library(tidyr)
+library(shiny)
+library(ggplot2)
+library(ggthemes)
+```
 
 ## Admistrative:
 
 Please indicate
 
-* Who you collaborated with:
-* Roughly how much time you spent on this HW:
-* What gave you the most trouble:
-* Any comments you have: 
-
-
+* Who you collaborated with:Alison Cook
+* Roughly how much time you spent on this HW:3h
+* What gave you the most trouble: Uploading shiny w/windows
+* Any comments you have: What is the domain for the Middlebury shiny server? I.E. MIDD\jdixon
 
 
 
@@ -28,7 +37,7 @@ a "single-file" Shiny app based on file `App.R`
 * Install all necessary packages on your Middlebury Shiny server account
 following the instructions given in Lec16 Shiny.
 * Upload your app to the Middlebury Shiny server and replace the NHL link with
-the link for your app [here](https://www.nhl.com/), so that when you Knit the 
+the link for your app [here](http://shiny.middlebury.edu/jdixon/wordcloud/), so that when you Knit the 
 document a working hyperlink shows.
 
 Hints:
@@ -40,15 +49,73 @@ people spinning their wheels on this HW this late in the semester.
 * Consider using `if` and `else` statements to switch out which text to show the
 wordcloud for. Note this isn't the only way to do this. Ex:
 
-```{r}
-text <- "blah2"
-if(text == "blah1"){
-  value <- 1
-} else if (text == "blah2"){
-  value <- 2
-} else if (text == "blah3"){
-  value <- 3
-}
-value
+```{r, cache=TRUE, echo=FALSE}
+
+#Import the three books
+proposal <-
+  readLines("a_modest_proposal.txt", encoding="UTF-8") %>%
+  as.character()
+
+moby_dick <-
+  readLines("moby_dick.txt", encoding="UTF-8") %>%
+  as.character()
+
+tom_sawyer <-
+  readLines("tom_sawyer.txt", encoding="UTF-8") %>%
+  as.character()
+
+
+#Clean up the text for each:
+# For Modest Proposal
+proposal <- proposal %>%
+  tolower() %>%
+  removeNumbers() %>%
+  removePunctuation() %>%
+  removeWords(stopwords("english")) %>%
+  stemDocument() %>%
+  stripWhitespace()
+
+
+#For Moby Dick
+moby_dick <- moby_dick %>%
+  tolower() %>%
+  removeNumbers() %>%
+  removePunctuation() %>%
+  removeWords(stopwords("english")) %>%
+  stemDocument() %>%
+  stripWhitespace()
+
+#For Tom Sawyer
+tom_sawyer <- tom_sawyer %>%
+  tolower() %>%
+  removeNumbers() %>%
+  removePunctuation() %>%
+  removeWords(stopwords("english")) %>%
+  stemDocument() %>%
+  stripWhitespace()
+
+
+
+#Create the word clouds
+#Modest Proposal
+proposal <- VectorSource(proposal) %>% 
+  Corpus()
+wordcloud(proposal, scale=c(5,0.5), max.words=25, random.order=FALSE,
+          rot.per=0.35, use.r.layout=FALSE, colors=brewer.pal(8, "BuPu"))
+
+#Moby Dick
+moby_dick <- VectorSource(moby_dick) %>% 
+  Corpus()
+wordcloud(moby_dick, scale=c(5,0.5), max.words=25, random.order=FALSE,
+          rot.per=0.35, use.r.layout=FALSE, colors=brewer.pal(8, "BuPu"))
+
+
+#Tom Sawyer
+tom_sawyer <- VectorSource(tom_sawyer) %>% 
+  Corpus()
+wordcloud(tom_sawyer, scale=c(5,0.5), max.words=25, random.order=FALSE,
+          rot.per=0.35, use.r.layout=FALSE, colors=brewer.pal(8, "BuPu"))
+
+
 ```
 
