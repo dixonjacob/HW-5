@@ -21,9 +21,9 @@ library(ggthemes)
 Please indicate
 
 * Who you collaborated with:Alison Cook
-* Roughly how much time you spent on this HW:3h
-* What gave you the most trouble: Uploading shiny w/windows
-* Any comments you have: What is the domain for the Middlebury shiny server? I.E. MIDD\jdixon
+* Roughly how much time you spent on this HW:4h
+* What gave you the most trouble: Shiny uploading. It is working now though I think!  
+* Any comments you have: What is the domain for the Middlebury shiny server? I.E. MIDD\jdixon <- It is that! 
 
 
 
@@ -37,7 +37,7 @@ a "single-file" Shiny app based on file `App.R`
 * Install all necessary packages on your Middlebury Shiny server account
 following the instructions given in Lec16 Shiny.
 * Upload your app to the Middlebury Shiny server and replace the NHL link with
-the link for your app [here](http://shiny.middlebury.edu/jdixon/wordcloud/), so that when you Knit the 
+the link for your app [here](http://shiny.middlebury.edu/jdixon/wordcloud/) or on a different sever [here](https://jacobdixon.shinyapps.io/wordcloudbooks/), so that when you Knit the 
 document a working hyperlink shows.
 
 Hints:
@@ -118,4 +118,3 @@ wordcloud(tom_sawyer, scale=c(5,0.5), max.words=25, random.order=FALSE,
 
 
 ```
-
